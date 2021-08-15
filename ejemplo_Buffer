@@ -1,5 +1,7 @@
 
-/*Se copian los datos de hola.txt a holamundo.txt a través de buffer
+/* BUFFER
+ * _______
+ * Se copian los datos de hola.txt a holamundo.txt a través de buffer
  * A continuación se lee el contenido de holamundo.txt mediante FileReader
  */
 
