@@ -1,0 +1,69 @@
+
+
+
+/* •	•	File01 - Muestra el contenido de un fichero de texto pasado 
+ * como parámetro en la línea de comandos leyendo carácter a carácter. */
+
+package ficheros;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Lectura_Fichero {
+	static int contadorLinea;
+	static int contadorChar;
+	//Paso por parámetro el archivo fichero
+	public static  void contadorLineas(File fichero) throws IOException {
+		
+		System.out.println("El contenido del fichero es= ");
+		System.out.println();
+		
+		
+		if(fichero.exists()) {
+			BufferedReader lectura=new BufferedReader(new FileReader (fichero));
+				
+			String linea;
+			while((linea=lectura.readLine()) != null ) {
+				System.out.println(linea);
+				contadorLinea++;
+			}
+			
+			
+		}
+		
+		System.out.println("El número de líneas contadas es= "+contadorLinea);
+		
+	}
+	public static void contadorChar(FileReader fichero1)  {
+		try {
+		int letrai;
+		letrai=fichero1.read();
+		
+		while(letrai!=-1) {
+			char letra=(char)letrai;
+			System.out.print(letra);
+			contadorChar++;
+			letrai=fichero1.read();
+		}
+		System.out.println();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("El número de char es= "+contadorChar);
+	}
+	public static void main(String[] args) throws IOException {
+		
+		File fichero=new File("C:/Users/User/Desktop/archivo.txt");
+		FileReader fichero1=new FileReader("C:/Users/User/Desktop/archivo.txt");
+		//Llamamos al método del contador de líneas
+		Lectura_Fichero.contadorLineas(fichero);
+		//Llamamos al método del contador de char
+		Lectura_Fichero.contadorChar(fichero1);
+	}
+
+}
