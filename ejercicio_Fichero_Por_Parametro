@@ -1,0 +1,35 @@
+
+
+/* •	•	File01 - Muestra el contenido de un fichero de texto pasado 
+ * como parámetro en la línea de comandos leyendo carácter a carácter. */
+
+package ficheros;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Lectura_Fichero {
+	
+	//Paso por parámetro el archivo fichero
+	public static void lecturaFichero(File fichero) throws FileNotFoundException {
+		
+		System.out.println("El contenido del fichero es= ");
+		System.out.println();
+		Scanner sc=new Scanner(fichero);
+		String linea="";
+		while(sc.hasNext()) {
+			linea=sc.nextLine();
+			System.out.print(linea);
+		}
+		System.out.println();
+		
+	}
+	public static void main(String[] args) throws FileNotFoundException {
+		
+		File fichero=new File("C:/Users/User/Desktop/archivo.txt");
+		
+		Lectura_Fichero.lecturaFichero(fichero);
+	}
+
+}
