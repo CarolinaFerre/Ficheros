@@ -1,0 +1,233 @@
+
+
+RESUMEN BÁSICO SOBRE FICHEROS (Segunda Parte)
+_____________________________________________
+
+FICHEROS DE BINARIOS
+_____________________
+
+
+Flujos básicos de ficheros binarios: (FileInputStream y FileOutputStream)
+Solo permiten leer o escribir un entero o un número determinado de bytes
+//Abrir fichero 
+FileInputStream fsr = new FileInputStream(“entrada.dat”);
+
+FileOutputStream fso = new FileOutputStream(“salida.dat”);
+
+Puede recibir como parámetro una cadena con ruta a un fichero o un objeto de tipo
+File.
+
+Leer int entero = fsr.read(); //Lee un entero
+
+int nbytes = fsr.read(tab); //Permite leer un array de byte . ( byte tab[] )
+
+Ambos métodos devuelve el número de bytes leídos o -1 si no hay más datos
+
+
+
+El método fsr.available() nos devuelve cuantos bytes quedan por leer, si igual a 0
+indica que no hay más datos disponibles.
+
+
+Escribir fso.write(entero); Escribe un entero
+
+fso.write(tab); Escribe el contenido de la tabla de bytes
+No devuelve nada, si falla genera una excepción.
+
+Cerrar fichero close(fsr);
+
+
+EJEMPLO
+________
+
+Ejemplo // Copia el contenido del fichero entrada.dat a salida.dat
+
+// Abro los ficheros
+FileInputStream fsi = new FileInputStream("entrada.dat");
+FileOutputStream fso = new FileOutputStream("salida.dat"); 
+
+// Variable donde guardar los datos leidos
+byte datos[] = new byte[100];
+int nbytesleidos = fsi.read(datos);
+
+while ( nbytesleidos != -1) {
+ // Grabo los bytes que he leido puede ser 100 o menos
+fso.write(datos,0,nbytesleidos);
+nbytesleidos = fsi.read(datos);
+}
+
+
+fsi.close();
+fso.close();
+
+
+
+Los ficheros de texto son un tipo especial de fichero binarios. Podemos obtener un flujo de caracteres
+para leer (Reader) o para escribir (Writer) a partir de un flujo binario mediante las clases
+InputStreamReader y OutputStreamWrite.
+
+
+
+
+
+
+
+Flujos binarios utilizando un Buffer: BufferedInputStream y BufferdOutputStream
+________________________________________________________________________________
+
+Trabaja con el buffer (memoria RAM auxiliar) permite que las operaciones de lectura y escritura sean
+más rápidas.
+
+
+Abrir fichero para
+usar un buffer:
+
+1º Abrimos el FileStream y después crear el BufferedStream:
+
+FileInputStream fsi = new FileInputStream("entrada.dat");
+FileOutputStream fso = new FileOutputStream("salida.dat");
+
+// Asocio el Buffer a cada flujo
+BufferedInputStream bi = new BufferedInputStream(fsi);
+BufferedOutputStream bo = new BufferedOutputStream(fso);
+
+Leer y escribir Tiene los mismos métodos que FileInputStream y FileOutputStream
+Cerrar Igual, método close.
+
+
+
+EJEMPLO
+________
+
+Ejemplo // Copia el contenido del fichero entrada.dat a salida.dat con Buffer
+
+
+// Abro los ficheros
+FileInputStream fsi = new FileInputStream ("entrada.dat");
+FileOutputStream fso = new FileOutputStream("salida.dat");
+
+
+/ / Asocio el Buffer a cada flujo
+BufferedInputStream bi =new BufferedInputStream(fsi);
+BufferedOutputStream bo =new BufferedOutputStream(fso);
+
+byte datos[] = new byte[100];
+// Leer con bi en vez de fsi
+// Escribir con bo en vez de fso
+int nbytesleidos = bi.read(datos);
+
+while ( nbytesleidos != -1) {
+ // Grabo los bytes que he leido puede ser 100 o menos
+bo.write(datos,0,nbytesleidos);
+nbytesleidos = bi.read(datos);
+}
+
+bi.close();
+bo.close();
+
+
+
+
+Flujos binarios de datos primitivos: DataOutputStream y DataInputStream
+________________________________________________________________________
+
+
+Permite la lectura o la escritura de los datos primitivos de java: int, float, long, Strings... y procesar
+ficheros binarios generados por otros lenguajes de programación:
+
+
+
+Abrir DataStream 1º Abrimos el FileStream y después crear el DataStream:
+
+ FileOutputStream fso = new FileOutputStream(nombre);
+DataOutputStream fdo = new DataOutputStream(fso);
+FileInputStream fsi = new FileInputStream(nombre);
+ DataInputStream fdi = new DataInputStream(fsi);
+ 
+ 
+Leer un valor Tenemos todos los método disponibles para leer datos primitivos
+ readChar(), readInt(), readFloat()…
+ readUTF() → Para leer una cadena de formato UTF8
+ 
+Se puede detectar el final de fichero con el método available()
+
+Escribir un valor writeChar(letra), writeInt(entero), writeFloat()..
+
+ writeUTF(cadena) → Para Escribir una cadena de formato UTF8
+ 
+No devuelven nada. Si fallan generan una excepción.
+
+Cerrar Close();
+
+
+EJEMPLO
+________
+
+Ejemplo // Abro el flujo de datos para escribir
+FileOutputStream fso = new FileOutputStream("enteros.dat");
+DataOutputStream fdo = new DataOutputStream(fso);
+
+// Escribir con 5 enteros en binario
+for (int i=1; i <= 5; i++) {
+ fdo.writeInt(i*100);
+}
+
+fdo.close();
+fso.close();
+
+
+// Abro el flujo de datos para leer
+FileInputStream fsi = new FileInputStream("enteros.dat");
+DataInputStream fdi = new DataInputStream(fsi);
+
+// Leo los enteros y los muestro por consola
+while ( fdi.available() != 0 ) {
+ int valori = fdi.readInt();
+ System.out.println(valori);
+ }
+ 
+ 
+fdi.close();
+fsi.close()
+
+
+
+AMPLIACIÓN: LEER INFORMACIÓN DE URL
+____________________________________
+
+Ampliación: Usar un flujo para leer información de una URL.
+Java tiene muchas funciones que permiten leer y escribir de flujos asociados a conexiones de red. Un
+caso particular es cuando queremos leer un sitio web indicando por URL de la página. En este proceso
+java a través del sistema operativo, consulta al DNS para obtener la dirección IP de servidor, abre una
+conexión usando el protocolo HTTP y envía la petición de la URL como realiza un navegar. Para esta
+conexión java crea un flujo binario que se puede procesar con un flujo de un fichero.
+
+
+/**
+ * FileURL - Leer de la URL indicada, mostrando el página solicitada por pantalla.
+ */
+import java.net.*;
+import java.util.Scanner;
+import java.io.*;
+
+public class FileURL {
+
+ public static void main(String[] args) throws Exception {
+ // Creo la URL
+ URL dir = new URL("http://www.google.es");
+
+ // Obtengo un flujo de lectura Reader sobre la conexión a la URL
+ InputStreamReader is = new InputStreamReader( dir.openStream());
+
+ // Abro el scaner sobre el flujo de caracteres Reader
+ Scanner sc = new Scanner(is);
+ String linea;
+ while (sc.hasNext() ) {
+ linea = sc.nextLine();
+ System.out.println(linea);
+    }
+  }
+}
+
+
+
