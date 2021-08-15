@@ -1,0 +1,66 @@
+
+
+/* •	FileDemo – Lee un nombre de un fichero y muestra si existe su nombre,
+ *  ruta donde se almacena, tamaño y fecha de última modificación. 
+ *  Si el fichero es un directorio se muestra los nombres 
+ *  de los ficheros que contiene.*/
+
+
+package ficheros;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Date;
+
+
+public class Fichero1 {
+
+	public static void main(String[] args) throws IOException {
+		 File fichero=new File("C:/Users/User/Desktop/carpeta_1/hola.txt");
+		 //Creamos un objeto de lectura
+		 FileReader fichero2=new FileReader("C:/Users/User/Desktop/carpeta_1/hola.txt");
+		 
+		 
+		 //si el directorio es archivo sabemos el nombre, ruta y fecha de modificación
+		 if(fichero.isFile()) {
+			 //Nombre del fichero
+			 System.out.println("Nombre del fichero: "+fichero.getName());
+			 //ruta donde se almacena el fichero
+			 System.out.println("Ruta donde se almacena: "+fichero.getAbsolutePath());
+			 //Tamaño del archivo
+			 System.out.println("Tamaño: "+fichero.length());
+			 //fecha de la última modificación del archivo
+			 System.out.println("Fecha de última modificación: "+new Date(fichero.lastModified()));
+			
+			 
+			 //Se lee el contenido del fichero
+			 int letraFichero;
+			 
+			 letraFichero=fichero2.read();
+			 
+			 System.out.println("El contenido del fichero es el siguiente: ");
+			 System.out.println();
+			 while(letraFichero!=-1) {
+				 char letra=(char)letraFichero;
+				 System.out.print(letra);
+				 letraFichero=fichero2.read();
+			 }
+			 System.out.println();
+			 
+			 
+			 //Dice si es un directorio y lee cada uno de los archivos dentro de él
+		 }else if(fichero.isDirectory()) {
+			System.out.println("Es un directorio");
+			//Crea un array de String con el contenido del fichero
+			String ficheros[]=fichero.list();
+			System.out.println("Los ficheros que tiene la carpeta son: ");
+			for(int i=0;i<ficheros.length;i++) {
+				System.out.println(ficheros[i]);
+			}
+			
+		 }
+	}
+
+}
