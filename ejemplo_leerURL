@@ -1,0 +1,42 @@
+
+
+/* URL:
+ * ___
+ * 
+ * Ejercicio que lee el contenido del código html y js de google.es
+ */
+
+
+package ficheros;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Scanner;
+
+public class ejemplo_leerUrl {
+
+	public static void main(String[] args) throws IOException {
+		
+		//Creo la URL
+		URL dir=new URL("https://www.google.es");
+		
+		//Obtengo el flujo de lectura Reader sobre la conexión URL
+		InputStreamReader is=new InputStreamReader(dir.openStream());
+		
+		
+		System.out.println("Código html y js de google.es: ");
+		System.out.println("________________________________");
+		System.out.println();
+		Scanner sc=new Scanner(is);
+		String linea="";
+		
+		//Leo el código de la URL usando el método hasNext(),mientras que haya contenido se lee el contenido
+		while(sc.hasNext()) {
+			linea=sc.nextLine();
+			System.out.println(linea);
+		}
+	}
+
+}
