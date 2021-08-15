@@ -1,5 +1,6 @@
 
 
+
 /* •	FileDemo – Lee un nombre de un fichero y muestra si existe su nombre,
  *  ruta donde se almacena, tamaño y fecha de última modificación. 
  *  Si el fichero es un directorio se muestra los nombres 
@@ -59,8 +60,9 @@ public class Fichero1 {
 			for(int i=0;i<ficheros.length;i++) {
 				System.out.println(ficheros[i]);
 			}
-			
+			fichero2.close();
 		 }
+		 
 	}
 
 }
