@@ -1,0 +1,58 @@
+
+
+
+/* •	File00 - Lee carácter a carácter el fichero datos.txt y lo muestra por pantalla.
+ * También mostrarme por cadena de caracteres mediante buffer */
+
+package ficheros;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+
+public class leerFicheroDatos {
+
+	public static void main(String[] args)  {
+		
+		//Mostramos el contenido del fichero por String mediante buffer
+		File fichero=new File("C:/Users/User/Desktop/datos.txt");
+		try {
+		Scanner sc=new Scanner(fichero);
+		
+		System.out.println();
+		System.out.println("El contenido del fichero es: ");
+		System.out.println();
+		
+		String linea="";
+			while(sc.hasNext()) {
+				linea=sc.nextLine();
+				System.out.println(linea);
+			}
+		sc.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		//Mostramos el contenido del fichero datos.txt por medio de char
+		try {
+		FileReader fr=new FileReader("C:/Users/User/Desktop/datos.txt");
+		int letrai;
+		letrai=fr.read();
+		
+		System.out.println();
+		System.out.println("El contenido del fichero es: ");
+		System.out.println();
+		
+		while(letrai!=-1) {
+			char letra=(char)letrai;
+			System.out.print(letra);
+			letrai=fr.read();
+		}
+		System.out.println();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+}
