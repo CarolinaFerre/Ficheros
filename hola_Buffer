@@ -1,0 +1,58 @@
+
+/*Se copian los datos de hola.txt a holamundo.txt a través de buffer
+ * A continuación se lee el contenido de holamundo.txt mediante FileReader
+ */
+
+package ficheros;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class holaBuffer {
+
+	public static void main(String[] args) throws IOException {
+		
+		//Creación de File de hola.txt
+		File fr=new File("C:\\Users\\User\\Desktop\\hola.txt");
+		
+		//Creación de File de holamundo.txt
+		File fw=new File("C:\\Users\\User\\Desktop\\holamundo.txt");
+		
+		//Se indica que el File fr de hola.txt es de lectura, se abre el scanner
+		Scanner sc=new Scanner(fr);
+		//Se indica que el File fw de holamundo.txt es de escritura, se abre printWrite
+		PrintWriter pw=new PrintWriter(fw);
+		
+		String linea="";
+		
+		//Método hasNexLine para indicar que mientras hay datos se leen los datos
+		while(sc.hasNextLine()) {
+			linea=sc.nextLine();
+			pw.print(linea);
+		
+		}
+		
+		System.out.println("Fichero copiado ");
+		
+		//Cierro los ficheros
+		
+		pw.close();
+		sc.close();
+		FileReader fj=new FileReader("C:\\Users\\User\\Desktop\\holamundo.txt");
+		System.out.println("A continuación vamos a leer el contenido del fichero copiado");
+		
+		int letrai=0;
+		letrai=fj.read();
+		while(letrai!=-1) {
+			char letra=(char) letrai;
+			System.out.print(letra);
+			letrai=fj.read();
+		}
+		System.out.println();
+
+	}
+}
