@@ -1,0 +1,247 @@
+
+
+RESUMEN BÁSICO SOBRE FICHEROS (Primera Parte)
+_____________________________________________
+
+
+Información sobre un fichero: FILE
+___________________________________
+
+
+Usar un File File f = File(“/home/prueba/mifichero.txt”); //
+
+El fichero no tiene por que existir.
+
+
+Métodos
+principales
+____________
+
+
+exists() Devuelve un valor lógico si existe el fichero
+
+canRead() Devuelve un valor lógico si el fichero de puede leer o no
+
+canWrite() Devuelve un valor lógico si el fichero de puede leer o no
+
+createNewFile() Devuelve un valor lógico si puede crear un nuevo fichero
+
+delete() Devuelve un valor lógico si puede borrar el fichero
+
+getName() Devuelve un String con el nombre del fichero
+
+getAbsolutePath() Devuelve un String con la ruta completa del fichero
+
+length() Devuelve un entero largo con el tamaño el bytes de fichero.
+
+Isdirectory () Devuelve un valor lógico que indica si el fichero es un directorio
+
+isFile() Devuelve un valor lógico que indica si el fichero es un fichero normal
+
+list() Devuelve un array de cadena String[] con los nombrede los archivos que contiene si el
+fichero es un directorio
+
+
+
+
+
+
+Ejemplo: public static void main ( String argv[] ) throws IOException{
+ 
+ Scanner sc = new Scanner(System.in);
+ 
+ System.out.print("Indique le nombre de un fichero o directorio:");
+ 
+ String nombre = sc.nextLine();
+
+ File fichero = new File( nombre );
+ 
+ if ( fichero.exists() ) {
+ System.out.println("Nombre: "+fichero.getName());
+ System.out.println("- Ruta completa: "+ fichero.getAbsolutePath() );
+ System.out.println("- Tamaño: "+ fichero.length() + " bytes");
+ System.out.println("- Última modificación: "
+ + new Date(fichero.lastModified()) );
+ 
+ 
+ if (fichero.isFile()) {
+ System.out.println("- Fichero normal");
+ 
+ } else if (fichero.isDirectory()) {
+ System.out.println("- Directorio");
+ String ficheros[] = fichero.list();
+ 
+ for (int i=0; i<ficheros.length; i++) {
+ System.out.println("\t"+ficheros[i]);
+    }
+ }
+
+ } else {
+ System.out.println("El fichero '"+nombre+"' no existe");
+    }
+
+ }
+ 
+ 
+ 
+ 
+FICHEROS DE TEXTO
+__________________
+
+FILEREADER:
+Leer carácter a carácter: FileReader
+_____________________________________
+
+Abrir fichero FileReader ficheror = FileReader(“mifichero.txt”);
+
+El fichero debe existir y tener permiso de lectura, puede recibir como parámetro una
+ruta a un fichero o un File. Si no indicamos la ruta, el archivo estará en el directorio
+de ejecución de java.
+
+
+Leer un carácter int letrai = ficheror.read() Devuelve un entero si es -1 indica que no hay más
+datos.
+
+Para visualizarla letra hay convertirla en char
+
+char letra = (char) letrai;
+
+Cerrar fichero close(ficheror)
+
+Ejemplo FileReader fr = new FileReader("datos.txt");
+
+
+ int letrai;
+ 
+ System.out.println("Contenido del fichero: datos.txt:");
+ // Mientras no devuelva la lectura -1
+ letrai = fr.read();
+ while (letrai != -1) {
+ char letra = (char) letrai;
+ System.out.print(letra);
+ letrai = fr.read();
+ }
+ 
+ 
+ // Cierra el fichero
+ fr.close();
+ 
+ 
+ 
+FILEWRITER
+Escribir carácter a carácter: FileWriter
+_________________________________________
+
+
+Abrir fichero FileWrite ficherow = FileWrite(“mifichero.txt”);
+
+El fichero debe poderse crear si no existe o tener permiso de escritura si existe,
+puede recibir como parámetro una ruta a un fichero o un File
+
+Escribir un carácter ficherow.write(letra)
+
+También permite escribir una cadena (String) o un tabla de caracteres char []
+
+Cerrar fichero close(ficherow)
+
+
+Ejemplo // Lee de un fichero y lo escribe en otro carácter a carácter.
+
+public static void main ( String argv[] )
+ throws IOException {
+
+ FileReader fr = new FileReader("ficheroleer.txt");
+ FileWriter fw = new FileWriter("ficheroescribir.txt");
+
+ int letrai;
+ System.out.println("Copiando datos:");
+ // Mientras no devuelva la lectura -1
+ letrai = fr.read();
+ char letra = (char) letrai;
+
+ while (letrai != -1) {
+ fw.write(letra);
+ System.out.print(".");
+ letrai = fr.read();
+ letra = (char) letrai;
+ 
+ }
+ System.out.println(" Fichero copiado.");
+ // Cierra el fichero
+ fr.close();
+ fw.close();
+ } 
+ 
+ 
+ 
+BUFFER
+Lectura y escritura mediante un buffer:
+____________________________________________
+
+
+El buffer es una zona de memoria auxiliar que permite una lectura y escritura más rápida al leer y al
+escribir y varios bytes a la vez. Permite realizar gran parte de la operaciones en memoria, grabando o
+leyendo de los dispositivo de E/S (Ej- Disco duro) sólo cuando no hay datos en la buffer(lectura) o
+cuando está completo (escritura).
+
+
+Java tiene las clases BufferedWriter y BufferedReader, que se pueden utilizar, sin embargo hay clases
+de más alto nivel que permiten un uso más sencillo.
+
+Scanner: Es una clase que permite la lectura utilizando un buffer. Puede leer de distintas fuentes por
+ejemplo de un fichero o de un cadena de caracteres.
+
+
+//Abrir Scanner 
+File mf = new File ("nombre.txt");
+
+ Scanner scf = new Scanner(mf)
+ 
+// Ojo new Scanner("nombre.txt") sería erróneo pues las lecturas se harían sobre la cadena con el valor "nombre.txt"
+
+/*Leer un valor 
+Tenemos todos los método disponibles de Scanner que ya hemos usado:
+
+nextLine(), nextInt(), nextFloat()...*/
+/*
+Detectar si hay datos hasNextLine(), hasNextInt()... devuelven falso si no hay datos*/
+
+//Cerrar 
+
+Scanner close();
+
+
+PrintWriter: Utilizan un buffer para escritura ofreciendo muchos métodos.
+System.out y System.err son PrintWriter predefinidos en Java
+Abrir PrintWrite Permite indicar un File o el nombre del fichero directamente.
+
+
+ File fs = new File("nombre.txt");
+ PrintWrite pt = new PrintWrite(fs) // new PrintWrite("nombre.txt")
+ 
+ 
+Escribir un valor Tenemos todos los método disponibles de PrintWriter que ya hemos usado:
+print(), println(), printf()...
+
+Cerrar close();
+
+
+Ejemplo: Leer con un Scanner y escribir utilizando un PrintWriter.
+ File fr = new File ("datos.txt");
+ File fw = new File ("resu.txt");
+
+ Scanner sc = new Scanner(fr);
+ PrintWriter pw = new PrintWriter(fw);
+ String linea;
+ while (sc.hasNextLine() ) {
+ linea = sc.nextLine();
+ pw.println(linea);
+ }
+ System.out.println(" Fichero copiado.");
+ // Cierro los fichero
+ pw.close();
+ sc.close();
+ 
+ 
+ 
+ 
