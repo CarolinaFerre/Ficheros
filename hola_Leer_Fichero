@@ -1,13 +1,14 @@
 
-
-
-//LEE FICHERO HOLA UBICADO EN ESCRITORIO QUE CONTIENE HOLA MUNDO
+//LEE FICHERO HOLA UBICADO EN ESCRITORIO QUE CONTIENE HOLA MUNDO Y MUESTRA LA INFORMACIÓN DEL FICHERO
+//DICE SI ES FICHERO O DIRECTORIO Y EN CASO DE QUE SEA DIRECTORIO RECORRE EL DIRECTORIO Y MUESTRA LOS FICHEROS
 
 package ficheros;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Date;
 
 public class holaMundo {
 
@@ -19,18 +20,44 @@ public class holaMundo {
 		
 		//Se crea el objeto del fichero
 		FileReader fr=new FileReader("C:\\Users\\User\\Desktop\\hola.txt");
-		
+		File fichero=new File("C:\\Users\\User\\Desktop\\hola.txt");
 		int letrai;
-		
-		System.out.println("Contenido del fichero: hola.txt ");
-		
+		System.out.println();
+		System.out.println("Contenido del fichero");
+		System.out.println("________________________");
+		System.out.println();
 		letrai=fr.read();
 		
 		//Mientras no devuelva la lectura -1, ósea mientras tenga contenido
 		while(letrai!=-1) {
 			char letra= (char)letrai;
-			System.out.println(letra);
+			System.out.print(letra);
 			letrai=fr.read();
+		}
+		System.out.println();
+		System.out.println();
+		System.out.println("Información del fichero: ");
+		System.out.println("________________________");
+		System.out.println();
+		if(fichero.exists()) {
+			System.out.println("Nombre del fichero: "+fichero.getName());
+			System.out.println("Ruta completa: "+fichero.getAbsolutePath());
+			System.out.println("Tamaño: "+fichero.length()+ " bytes");
+			System.out.println("última modificación: "+new Date(fichero.lastModified()));
+			
+			if(fichero.isFile()) {
+				System.out.println("Es un fichero");
+			}else if(fichero.isDirectory()) {
+				System.out.println("Es un directorio");
+				String ficheros[]=fichero.list();
+				System.out.println("Los ficheros que tiene el directorio son: ");
+				for(int i=0;i<ficheros.length;i++) {
+					System.out.println(ficheros[i]);
+				}
+			}
+		}else {
+			System.out.println("El fichero no existe");
+			
 		}
 		
 		//Cierra el fichero
