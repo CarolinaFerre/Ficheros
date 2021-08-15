@@ -1,0 +1,42 @@
+
+
+
+//LEE FICHERO HOLA UBICADO EN ESCRITORIO QUE CONTIENE HOLA MUNDO
+
+package ficheros;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class holaMundo {
+
+	public holaMundo() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static void main(String[] args) throws IOException {
+		
+		//Se crea el objeto del fichero
+		FileReader fr=new FileReader("C:\\Users\\User\\Desktop\\hola.txt");
+		
+		int letrai;
+		
+		System.out.println("Contenido del fichero: hola.txt ");
+		
+		letrai=fr.read();
+		
+		//Mientras no devuelva la lectura -1, ósea mientras tenga contenido
+		while(letrai!=-1) {
+			char letra= (char)letrai;
+			System.out.println(letra);
+			letrai=fr.read();
+		}
+		
+		//Cierra el fichero
+		fr.close();
+		
+
+	}
+
+}
