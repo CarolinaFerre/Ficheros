@@ -1,0 +1,63 @@
+
+
+
+/* •	File04  -  Lee del fichero hola.txt y copia en hola1.txt, carácter a carácter*/
+
+package ficheros;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FicheroCopia {
+	
+	public static void CopiaFichero(FileReader fichero1,FileWriter fichero2) throws IOException {
+		
+		
+		//COPIAR FICHERO
+		
+		System.out.println("Copiando datos...");
+		int letra1=fichero1.read();
+		char letra2=(char) letra1;
+		
+		while(letra1!=-1) {
+			fichero2.write(letra2);
+			System.out.println(".");
+			letra1=fichero1.read();
+			letra2=(char) letra1;
+		}
+		System.out.println("Fichero copiado");
+		fichero1.close();
+		fichero2.close();
+	}
+	public static void leerCopia(FileReader fichero3) throws IOException {
+		
+		//LEE NUEVO FICHERO CARACTER A CARACTER
+		
+		System.out.println("Vamos a leer la copia realizada:");
+		
+		int letra3=fichero3.read();
+		
+		while(letra3!=-1) {
+			char letra4=(char)letra3;
+			System.out.print(letra4);
+			letra3=fichero3.read();
+		}
+		System.out.println();
+		
+		
+		fichero3.close();
+	}
+	
+
+	public static void main(String[] args) throws IOException {
+		FileReader fichero1=new FileReader("C:/Users/User/Desktop/hola.txt");
+		FileWriter fichero2=new FileWriter("C:/Users/User/Desktop/hola1.txt");
+		FicheroCopia.CopiaFichero(fichero1, fichero2);
+		
+		FileReader fichero3=new FileReader("C:/Users/User/Desktop/hola1.txt");
+		FicheroCopia.leerCopia(fichero3);
+	}
+
+}
