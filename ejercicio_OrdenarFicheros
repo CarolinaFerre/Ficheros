@@ -1,5 +1,6 @@
 
 
+
 /* •	FileOrdenar - Ordena ficheros de texto utilizando un ArrayList de forma auxiliar*/
 
 
@@ -10,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -22,6 +24,8 @@ public class OrdenarArrays {
 	public static void main(String[] args) throws IOException {
 		File ficheros=new File("C:/Users/User/Desktop/hola.txt");
 		Scanner sc=new Scanner (ficheros);
+		
+		PrintWriter pw = new PrintWriter("ordenado.txt");
 		
 		ArrayList <String> lista=new ArrayList();
 		
@@ -39,6 +43,12 @@ public class OrdenarArrays {
 			System.out.print(i);
 		}
 		
+		//Vuelvo la colección al fichero
+		for(String i:lista) {
+			pw.write(i);
+		}
 		
+		sc.close();
+		pw.close();
 	}
 }
