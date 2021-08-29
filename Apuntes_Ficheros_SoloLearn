@@ -33,4 +33,106 @@ public class MyClass{
   
   
   
+  LEYENDO UN ARCHIVO
+  __________________
+
+Los archivos son útiles para almacenar y recuperar información y hay múltiples formas para leer de un archivo.
+
+Una de las formas más sencillas es utilizar la clase Scanner del paquete java.util.
+El constructor de la clase Scanner puede tomar un objeto File como entrada.
+Para leer los contenidos de un archivo de texto en la dirección "C\\sololearn\\test.txt", necesitaríamos crear un objeto File con la dirección 
+correspondiente y pasarlo al objeto Scanner.
+
+try{
+  File x=new File("C\\sololearn\\test.txt");
+  Scanner sc=new Scanner(x);
+  }
+  catch (FileNotFoundException e){
+  }
   
+  Hemos rodeado el código con un bloque try/catch ,porque hay posibilidad de que el archivo no exista.
+  
+  La clase Scanner hereda de la clase Iterator por lo que se comporta como uno.
+  Podemos utilizar método next() del objeto Scanner para leer los contenidos del archivo.
+  
+  try{
+  
+    File x=new File("C\\sololearn\\test.txt");
+    Scanner sc=new Scanner(x);
+    while(sc.hasNext()){
+      System.out.println(sc.next());
+      }
+      sc.close();
+      }catch(FileNotFoundException e){
+      System.out.println("Error");
+      }
+      
+      Los contenidos del archivo son desplegados palabra por palabra, porque el método next() devuelve cada palabra de forma separada.
+      Siempre es una buena práctica cerrar un archivo una vez finalizado el trabajo con el mismo. Una forma de hacer esto es utilizando el método close() de Scanner;
+      
+      
+      CREANDO ARCHIVOS
+      _________________
+
+Formatter,otra útil clase en el paquete java.util, es utilizada para crear contenido y escribirlo en los archivos.
+
+import java.util.Formatter;
+
+public class MyClass{
+
+  public static void main(String [] args){
+  try{
+    Formatter f=new Formatter ("C\\sololearn\\test.txt");
+    }catch(Exception e){
+    System.out.println("Error");
+    }
+   }
+  }
+  
+  Esto crea un archivo vacío en la dirección especificada. Si el archivo ya existe, esto lo sobrescribirá.
+  
+  Una vez más, necesita rodear el código con un bloque try/catch, ya que la operación puede fallar.
+  
+  Una vez que el archivo es creado, puedes escribir contenido en él utilizando el método format() de mismo objetivo Formatter.
+  
+  import java.util.Formatter;
+  
+  public class MyClass{
+  
+    public static void main (String []args){
+    
+    try{
+      Formatter f=new Formatter ("C:\\sololearn\\test.txt");
+      f.format("%s %s %s","1","John","Smith" \r\n");
+      f.format("%s %s %s","2","Amy","Brown");
+      
+      f.close();
+      }catch(Exception e ){
+      
+        System.out.println("Error");
+        }
+       }
+      }
+      
+      El método format() formatea sus parámetros de acuerdo a su primer parámetro.
+      
+      %s significa una cadena de texto y es reemplazado por el primer parámetro después del formato. El segundo %s es reemplazado por el siguiente,
+      y así sucesivamente. Así, el formato %s %s %s indica tres cadenas que están separadas con espacios.
+      
+      Nota: \r\n es el símbolo para nueva línea en Windows.
+      El código anterior crea un archivo con el siguiente contenido.
+      
+      1 John Smith
+      2 Amy Brown
+      
+      No olvides cerrar el archivo una vez que hayas terminado de escribir en él.
+      
+      ejemplo:
+      
+      Formatter f=new Formatter("a.txt");
+      
+      f.format("%s","Hi");
+      f.format("%s","there");
+      f.close();
+      
+      
