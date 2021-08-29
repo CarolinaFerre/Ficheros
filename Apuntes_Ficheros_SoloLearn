@@ -1,0 +1,36 @@
+
+
+TRABAJANDO CON ARCHIVOS
+_______________________
+
+El paquete java.io incluye una clase File que te permite trabajar con archivos.
+
+Para comenzar, crea un objeto File y especifica la dirección del archivo en el constructor.
+
+import java.io.File;
+...
+File file=new File("C:\\data\\input-file.txt");
+
+Con el método exists(), puedes determinar si un archivo existe,
+
+
+import java.io.File;
+
+public class MyClass{
+  public static void main (String []args){
+    File x=new File("C:\\sololearn\\test.txt");
+    
+    if(x.exists()){
+    System.out.println(x.getName()+ "exists!");
+    }
+    else{
+    System.out.println("The file does not exist");
+    }
+   }
+  }
+  
+  El código anterior imprime un mensaje indicando si el archivo existe o no en la dirección especificada.
+  
+  
+  
+  
