@@ -1,0 +1,81 @@
+
+
+/* 2º PARTE ( CONTENIDO ADICIONAL DE LA 3º EVALUACIÓN )
+(2 Puntos)
+4.- Queremos hacer un programa que lea de un fichero pasado como parámetro (args)  y muestre el contenido del fichero por pantalla ordenando las líneas por orden alfabético, salvo aquellas que comiencen por el carácter #.  
+El programa debe detectar que ha recibido un parámetro con el nombre del fichero y que este fichero existe y se puede leer.
+Ejemplo de ejecución
+>java ejercicio03  
+Debe introducir un nombre de fichero.
+
+>java ejercicio03  ksla.tdte
+El fichero ksla.tdle no existe o no se puede leer.
+
+>java ejercicio04 prueba.txt
+Si suponemos que el fichero prueba.txt existe se puede leer y tiene el siguiente contenido:
+hola
+pepe
+alberto
+luis
+#no poner
+cosa
+#no poner nada
+pepito
+manolo
+
+El programa mostraría por la pantalla
+alberto
+cosa
+hola
+luis
+manolo
+pepe
+pepito
+ */
+
+
+package examen2021;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class ficherosOrden {
+
+
+	public static void ordenarContenido(ArrayList contenidoFichero) {
+		
+			Collections.sort(contenidoFichero);
+			
+			Iterator <String> lecturaArray=contenidoFichero.iterator();
+			
+			while(lecturaArray.hasNext()) {
+				System.out.println(lecturaArray.next());
+			}
+	}
+	public static void main(String[] args) throws FileNotFoundException {
+		File lectura=new File("C:\\Users\\User\\Documents\\ficheros.txt");
+		
+		Scanner sc=new Scanner(lectura);
+		
+		ArrayList<String> contenidoFichero=new ArrayList<String>();
+		
+		String linea;
+		while(sc.hasNext()) {
+			linea=sc.nextLine();
+			if(linea.contains("#")) {
+				System.out.println("La linea no se guarda porque contiene #");
+			}else {
+				
+				contenidoFichero.add(linea);
+			}
+		}
+		
+		ficherosOrden.ordenarContenido(contenidoFichero);
+
+	}
+
+}
