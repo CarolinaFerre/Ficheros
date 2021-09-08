@@ -1,4 +1,5 @@
 
+//EJERCICIO EXAMEN ORDINARIA 2021
 
 /* 2º PARTE ( CONTENIDO ADICIONAL DE LA 3º EVALUACIÓN )
 (2 Puntos)
@@ -44,7 +45,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class ficherosOrden {
-
+static Scanner sc=new Scanner(System.in);
 
 	public static void ordenarContenido(ArrayList contenidoFichero) {
 		
@@ -59,23 +60,33 @@ public class ficherosOrden {
 	public static void main(String[] args) throws FileNotFoundException {
 		File lectura=new File("C:\\Users\\User\\Documents\\ficheros.txt");
 		
-		Scanner sc=new Scanner(lectura);
+		System.out.println(lectura.getName());
+		System.out.println("Introduzca nombre del fichero a ordenar");
+		String nombre=sc.nextLine();
 		
+		Scanner sc=new Scanner(lectura);
 		ArrayList<String> contenidoFichero=new ArrayList<String>();
 		
-		String linea;
-		while(sc.hasNext()) {
-			linea=sc.nextLine();
-			if(linea.contains("#")) {
-				System.out.println("La linea no se guarda porque contiene #");
-			}else {
+		if(nombre.equals(lectura.getName())){
+		
+		
+			String linea;
+			while(sc.hasNext()) {
+				linea=sc.nextLine();
+				if(linea.contains("#")) {
+					System.out.println("La linea no se guarda porque contiene #");
+				}else {
 				
-				contenidoFichero.add(linea);
+					contenidoFichero.add(linea);
+				}
 			}
+			ficherosOrden.ordenarContenido(contenidoFichero);
+		}else {
+			System.out.println("El fichero no coincide con el registrado");
 		}
 		
-		ficherosOrden.ordenarContenido(contenidoFichero);
+			
 
-	}
+	}	
 
 }
