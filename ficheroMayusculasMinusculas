@@ -1,0 +1,59 @@
+
+
+
+/* 2) Crea una aplicación donde pidamos la ruta de un fichero por teclado 
+ * y un texto que queramos a escribir en el fichero. 
+ * Deberás mostrar por pantalla el mismo texto pero variando entre mayúsculas
+ *  y minúsculas, es decir, si escribo “Bienvenido” deberá devolver “bIENVENIDO”
+ *  . Si se escribe cualquier otro carácter, se quedara tal y como se escribió.
+
+Deberás crear un método para escribir en el fichero el texto introducido y 
+otro para mostrar el contenido en mayúsculas. */
+
+package ficheros_;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class ejercicio2 {
+	
+	static Scanner sc=new Scanner(System.in);
+	static String ruta;
+	static FileReader lectura;
+	
+	public static void introducirRuta() throws FileNotFoundException {
+		System.out.println("Introduce ruta a leer");
+		ruta=sc.next();
+		lectura=new FileReader(ruta);
+	}
+	
+	public static void escribirEnRuta(FileReader lectura) throws FileNotFoundException,IOException{
+		
+		int lectura_=lectura.read();
+		
+		while(lectura_!=-1) {
+			
+			char lector=(char)lectura_;
+			if(lector==Character.toUpperCase(lector)) {
+				System.out.print(Character.toLowerCase(lector));
+			}else if(lector==Character.toLowerCase(lector)) {
+				System.out.print(Character.toUpperCase(lector));
+			}
+			System.out.println();
+			lectura_=lectura.read();
+		}
+	}
+
+	public static void main(String[] args) throws FileNotFoundException,IOException {
+		
+		ejercicio2.introducirRuta();
+		ejercicio2.escribirEnRuta(lectura);
+		
+		lectura.close();
+		
+	}
+
+}
