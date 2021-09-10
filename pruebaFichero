@@ -1,0 +1,43 @@
+
+
+
+/* 1) Crea un fichero de texto con el nombre y contenido que tu quieras. 
+ * Ahora crea una aplicación que lea este fichero de texto carácter a 
+ * carácter y muestre su contenido por pantalla  sin espacios. 
+ * Por ejemplo, si un fichero tiene el siguiente texto “Esto es una prueba”, 
+ * deberá mostrar “Estoesunaprueba”.
+
+Captura las excepciones que veas necesario.*/
+
+package ficheros_;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ejercicio1 {
+	
+	public static void leerFichero(FileReader lector) throws IOException {
+		
+		int lectura=lector.read();
+		
+		while(lectura!=-1) {
+			char caracter=(char)lectura;
+			System.out.print(caracter);
+			lectura=lector.read();
+		}
+		System.out.println();
+		
+	}
+	
+
+	
+
+	public static void main(String[] args) throws IOException {
+		
+		FileReader lector=new FileReader("C:\\Users\\User\\Desktop\\hola.txt");
+		
+		ejercicio1.leerFichero(lector);
+		lector.close();
+		}
+	}
