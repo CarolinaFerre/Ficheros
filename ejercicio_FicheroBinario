@@ -1,0 +1,64 @@
+
+/* Ficheros binarios
+4) Crea una aplicación que copie un fichero binario a otra localización. 
+En lugar de leer y escribir byte a byte, crea un array de bytes con el 
+tamaño del fichero de origen (utiliza el método available()), 
+copia el contenido del fichero a este array y escribe a partir de este array.
+
+Recuerda que debes controlar las excepciones que puedan aparecer. 
+En caso de error, mostrar una ventana de dialogo con información del error.*/
+
+package ficheros_;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class ejercicio4 {
+	static Scanner sc=new Scanner(System.in);
+	static String rutaEntrada;
+	static String rutaSalida;
+	static byte[] datos;
+	
+	public static void introducirRutas() {
+		System.out.println("Introduce la ruta de entrada");
+		rutaEntrada=sc.next();
+		System.out.println("Introduce la ruta de salida");
+		rutaSalida=sc.next();
+	}
+	public static void leerArray() {
+		//Leemos array con datos del fichero .dat
+		for(int i=0;i<datos.length;i++) {
+			System.out.println(datos[i]);
+		}
+	}
+	public static void main(String[] args) throws IOException,FileNotFoundException{
+		ejercicio4.introducirRutas();
+		//Abro el flujo de datos para leer el archivo entrada.dat
+		FileInputStream lectura=new FileInputStream(rutaEntrada);
+		//Abro el flujo de datos para escribir en el archivo salida.dat
+		FileOutputStream escritura=new FileOutputStream (rutaSalida);
+		
+		
+		//Array para introducir los datos del fichero binario con el tamaño del archivo
+		datos=new byte[lectura.available()];
+		
+		//Se introducen los datos con read en el array
+		int lectura_=lectura.read(datos);
+		
+		
+		while(lectura_!=-1) {
+			//Se escriben los datos del array a salida.dat
+			escritura.write(datos, 0, lectura_);
+			lectura_=lectura.read(datos);
+		}
+		//Se cierran FileInputStream y FileOutputStream
+		lectura.close();
+		escritura.close();
+		
+		ejercicio4.leerArray();
+	}
+
+}
